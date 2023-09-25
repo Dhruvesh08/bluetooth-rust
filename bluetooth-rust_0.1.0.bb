@@ -8,10 +8,10 @@ inherit cargo
 # how to get bluetooth-rust could be as easy as but default to a git checkout:
 # SRC_URI += "crate://crates.io/bluetooth-rust/0.1.0"
 SRC_URI += "git://github.com/Dhruvesh08/bluetooth-rust.git;protocol=https;nobranch=1;branch=main"
-SRCREV = "4a7ba134a4ecc279d254fbb5b2852a9fefe5dd8e"
+SRCREV = "78c401b8da6ecc1ef9e8bc7c9df257cb53401a69"
 S = "${WORKDIR}/git"
 CARGO_SRC_DIR = ""
-PV:append = ".AUTOINC+4a7ba134a4"
+PV:append = ".AUTOINC+78c401b8da"
 
 # please note if you have entries that do not begin with crate://
 # you must change them to how that package can be fetched

@@ -1,41 +1,30 @@
-use clap::{App, Arg, SubCommand};
-use tokio::runtime::Runtime;
+use clap::{Parser, Subcommand};
 
 mod bluetooth;
-use bluetooth::BluetoothSDK;
+pub use bluetooth::BluetoothSDK;
 
+#[derive(Parser)]
+#[clap(author, version, about, long_about = None)]
+struct Cli {
+    #[clap(subcommand)]
+    command: Command,
+}
 
-fn main() {
-    let matches = App::new("Bluetooth CLI")
-        .version("1.0")
-        .author("Your Name <your.email@example.com>")
-        .about("Interacts with Bluetooth devices")
-        .subcommand(SubCommand::with_name("on").about("Turns on Bluetooth"))
-        .subcommand(SubCommand::with_name("off").about("Turns off Bluetooth"))
-        .subcommand(SubCommand::with_name("scan").about("Scans for Bluetooth devices"))
-        .subcommand(
-            SubCommand::with_name("connect")
-                .about("Connects to a Bluetooth device")
-                .arg(Arg::with_name("ADDRESS").required(true).index(1)),
-        )
-        .get_matches();
+#[derive(Subcommand)]
+enum Command {
+    /// Scan for Bluetooth devices.
+    Scan,
+}
 
-  let sdl = BluetoothSDK::new().unwrap();
+async fn main() -> Result<(), bluer::Error> {
+    let cli = Cli::parse();
 
-    match matches.subcommand() {
-        // ("on", Some(_)) => {
-        //     BluetoothSDK::turn_on_bluetooth(&sdk).unwrap();
-        // }
-        // ("off", Some(_)) => {
-        //    BluetoothSDK::turn_off_bluetooth(&sdk).unwrap();
-        // }
-        ("scan", Some(_)) => {
-            let _ = sdl.scan_bluetooth().unwrap();
+    match cli.command {
+        Command::Scan => {
+            let sdk = BluetoothSDK::new().await?;
+            sdk.scan_bluetooth().await?;
         }
-        // ("connect", Some(connect_matches)) => {
-        //     let address = connect_matches.value_of("ADDRESS").unwrap();
-        //     rt.block_on(sdk.connect_bluetooth(address)).unwrap();
-        // }
-        _ => {}
     }
+
+    Ok(())
 }
