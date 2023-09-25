@@ -22,15 +22,15 @@ fn main() {
     let sdk = rt.block_on(BluetoothSDK::new()).unwrap();
 
     match matches.subcommand() {
-        ("on", Some(_)) => {
-            BluetoothSDK::turn_on_bluetooth(&sdk).unwrap();
-        }
-        ("off", Some(_)) => {
-           BluetoothSDK::turn_off_bluetooth(&sdk).unwrap();
-        }
-        ("scan", Some(_)) => {
-           BluetoothSDK::scan_bluetooth(&sdk).unwrap();
-        }
+        // ("on", Some(_)) => {
+        //     BluetoothSDK::turn_on_bluetooth(&sdk).unwrap();
+        // }
+        // ("off", Some(_)) => {
+        //    BluetoothSDK::turn_off_bluetooth(&sdk).unwrap();
+        // }
+        // ("scan", Some(_)) => {
+        //    BluetoothSDK::scan_bluetooth(&sdk).unwrap();
+        // }
         ("connect", Some(connect_matches)) => {
             let address = connect_matches.value_of("ADDRESS").unwrap();
             rt.block_on(sdk.connect_bluetooth(address)).unwrap();

@@ -4,7 +4,7 @@ use std::{collections::HashSet, env};
 use std::error::Error;
 
 pub struct BluetoothSDK {
-    adapter: Adapter,
+    
 }
 
 async fn query_device(adapter: &Adapter, addr: Address) -> bluer::Result<()> {
@@ -35,20 +35,19 @@ async fn query_all_device_properties(adapter: &Adapter, addr: Address) -> bluer:
 }
 
 impl BluetoothSDK {
-    pub async fn new() -> Result<Self, Box<dyn Error>> {
-        let adapter = Adapter::default().await?;
-        Ok(Self { adapter })
+    pub async fn new() -> Result<Self, Box<dyn Error>> {        
+        Ok(Self )
     }
 
-    pub async fn turn_on_bluetooth(&self) -> Result<(), Box<dyn Error>> {
-        self.adapter.set_powered(true).await?;
-        Ok(())
-    }
+    // pub async fn turn_on_bluetooth(&self) -> Result<(), Box<dyn Error>> {
+    //     self.adapter.set_powered(true).await?;
+    //     Ok(())
+    // }
 
-    pub async fn turn_off_bluetooth(&self) -> Result<(), Box<dyn Error>> {
-        self.adapter.set_powered(false).await?;
-        Ok(())
-    }
+    // pub async fn turn_off_bluetooth(&self) -> Result<(), Box<dyn Error>> {
+    //     self.adapter.set_powered(false).await?;
+    //     Ok(())
+    // }
 
     pub async fn scan_bluetooth(&self) -> Result<(), Box<dyn Error>> {
         let with_changes = env::args().any(|arg| arg == "--changes");
@@ -124,26 +123,26 @@ impl BluetoothSDK {
         Ok(())
     }
 
-    pub async fn connect_bluetooth(&self, device_address: &str) -> Result<(), Box<dyn Error>> {
-        self.adapter.start_discovery().await?;
+    // pub async fn connect_bluetooth(&self, device_address: &str) -> Result<(), Box<dyn Error>> {
+    //     self.adapter.start_discovery().await?;
 
-        let mut events = self.adapter.events().await?;
-        while let Some(event) = events.recv().await {
-            match event {
-                BluetoothEvent::Device { address, .. } if address == device_address => {
-                    self.adapter.stop_discovery().await?;
+    //     let mut events = self.adapter.events().await?;
+    //     while let Some(event) = events.recv().await {
+    //         match event {
+    //             BluetoothEvent::Device { address, .. } if address == device_address => {
+    //                 self.adapter.stop_discovery().await?;
 
-                    let device = Device::new(self.adapter.session(), &address).await?;
-                    device.connect().await?;
+    //                 let device = Device::new(self.adapter.session(), &address).await?;
+    //                 device.connect().await?;
 
-                    println!("Connected to device {}", device_address);
+    //                 println!("Connected to device {}", device_address);
                     
-                    return Ok(());
-                }
-                _ => {}
-            }
-        }
+    //                 return Ok(());
+    //             }
+    //             _ => {}
+    //         }
+    //     }
 
-        Err("Device not found".into())
-    }
+    //     Err("Device not found".into())
+    // }
 }
