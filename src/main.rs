@@ -30,7 +30,7 @@ fn main() {
         //    BluetoothSDK::turn_off_bluetooth(&sdk).unwrap();
         // }
         ("scan", Some(_)) => {
-            let _ = sdk.scan_bluetooth(false, false, false, false, HashSet::new()).await;
+            let _ = sdl.scan_bluetooth().unwrap();
         }
         // ("connect", Some(connect_matches)) => {
         //     let address = connect_matches.value_of("ADDRESS").unwrap();

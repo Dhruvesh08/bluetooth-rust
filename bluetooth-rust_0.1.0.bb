@@ -8,16 +8,17 @@ inherit cargo
 # how to get bluetooth-rust could be as easy as but default to a git checkout:
 # SRC_URI += "crate://crates.io/bluetooth-rust/0.1.0"
 SRC_URI += "git://github.com/Dhruvesh08/bluetooth-rust.git;protocol=https;nobranch=1;branch=main"
-SRCREV = "dd37dd309833252fb96d20cb8b59d6387684a908"
+SRCREV = "4a7ba134a4ecc279d254fbb5b2852a9fefe5dd8e"
 S = "${WORKDIR}/git"
 CARGO_SRC_DIR = ""
-PV:append = ".AUTOINC+dd37dd3098"
+PV:append = ".AUTOINC+4a7ba134a4"
 
 # please note if you have entries that do not begin with crate://
 # you must change them to how that package can be fetched
 SRC_URI += " \
     crate://crates.io/addr2line/0.21.0 \
     crate://crates.io/adler/1.0.2 \
+    crate://crates.io/aho-corasick/1.1.1 \
     crate://crates.io/anstream/0.5.0 \
     crate://crates.io/anstyle-parse/0.2.1 \
     crate://crates.io/anstyle-query/1.0.0 \
@@ -41,6 +42,9 @@ SRC_URI += " \
     crate://crates.io/dbus-tokio/0.7.6 \
     crate://crates.io/dbus/0.9.7 \
     crate://crates.io/displaydoc/0.2.4 \
+    crate://crates.io/env_logger/0.10.0 \
+    crate://crates.io/errno-dragonfly/0.1.2 \
+    crate://crates.io/errno/0.3.3 \
     crate://crates.io/futures-channel/0.3.28 \
     crate://crates.io/futures-core/0.3.28 \
     crate://crates.io/futures-executor/0.3.28 \
@@ -55,10 +59,13 @@ SRC_URI += " \
     crate://crates.io/heck/0.4.1 \
     crate://crates.io/hermit-abi/0.3.3 \
     crate://crates.io/hex/0.4.3 \
+    crate://crates.io/humantime/2.1.0 \
+    crate://crates.io/is-terminal/0.4.9 \
     crate://crates.io/itoa/1.0.9 \
     crate://crates.io/lazy_static/1.4.0 \
     crate://crates.io/libc/0.2.148 \
     crate://crates.io/libdbus-sys/0.2.5 \
+    crate://crates.io/linux-raw-sys/0.4.7 \
     crate://crates.io/lock_api/0.4.10 \
     crate://crates.io/log/0.4.20 \
     crate://crates.io/macaddr/1.0.1 \
@@ -80,7 +87,11 @@ SRC_URI += " \
     crate://crates.io/proc-macro2/1.0.67 \
     crate://crates.io/quote/1.0.33 \
     crate://crates.io/redox_syscall/0.3.5 \
+    crate://crates.io/regex-automata/0.3.8 \
+    crate://crates.io/regex-syntax/0.7.5 \
+    crate://crates.io/regex/1.9.5 \
     crate://crates.io/rustc-demangle/0.1.23 \
+    crate://crates.io/rustix/0.38.14 \
     crate://crates.io/rustversion/1.0.14 \
     crate://crates.io/ryu/1.0.15 \
     crate://crates.io/scopeguard/1.2.0 \
@@ -97,6 +108,7 @@ SRC_URI += " \
     crate://crates.io/syn/1.0.109 \
     crate://crates.io/syn/2.0.37 \
     crate://crates.io/synstructure/0.12.6 \
+    crate://crates.io/termcolor/1.3.0 \
     crate://crates.io/tokio-macros/2.1.0 \
     crate://crates.io/tokio-stream/0.1.14 \
     crate://crates.io/tokio/1.32.0 \
@@ -106,6 +118,7 @@ SRC_URI += " \
     crate://crates.io/uuid/1.4.1 \
     crate://crates.io/wasi/0.11.0+wasi-snapshot-preview1 \
     crate://crates.io/winapi-i686-pc-windows-gnu/0.4.0 \
+    crate://crates.io/winapi-util/0.1.6 \
     crate://crates.io/winapi-x86_64-pc-windows-gnu/0.4.0 \
     crate://crates.io/winapi/0.3.9 \
     crate://crates.io/windows-sys/0.48.0 \
