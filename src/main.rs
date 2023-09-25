@@ -3,6 +3,8 @@ use tokio::runtime::Runtime;
 
 mod bluetooth;
 use bluetooth::BluetoothSDK;
+
+
 fn main() {
     let matches = App::new("Bluetooth CLI")
         .version("1.0")
@@ -18,8 +20,7 @@ fn main() {
         )
         .get_matches();
 
-    let mut rt = Runtime::new().unwrap();
-    let sdk = rt.block_on(BluetoothSDK::new()).unwrap();
+  let sdl = BluetoothSDK::new().unwrap();
 
     match matches.subcommand() {
         // ("on", Some(_)) => {
@@ -28,13 +29,13 @@ fn main() {
         // ("off", Some(_)) => {
         //    BluetoothSDK::turn_off_bluetooth(&sdk).unwrap();
         // }
-        // ("scan", Some(_)) => {
-        //    BluetoothSDK::scan_bluetooth(&sdk).unwrap();
-        // }
-        ("connect", Some(connect_matches)) => {
-            let address = connect_matches.value_of("ADDRESS").unwrap();
-            rt.block_on(sdk.connect_bluetooth(address)).unwrap();
+        ("scan", Some(_)) => {
+            let _ = sdk.scan_bluetooth(false, false, false, false, HashSet::new()).await;
         }
+        // ("connect", Some(connect_matches)) => {
+        //     let address = connect_matches.value_of("ADDRESS").unwrap();
+        //     rt.block_on(sdk.connect_bluetooth(address)).unwrap();
+        // }
         _ => {}
     }
 }

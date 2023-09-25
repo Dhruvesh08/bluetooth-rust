@@ -10,4 +10,6 @@ homepage = "https://github.com/Dhruvesh08/bluetooth-rust.git"
 [dependencies]
 bluer = { version = "0.16.1", features = ["full"] }
 clap = "4.4.4"
+env_logger = "0.10.0"
+futures = "0.3.28"
 tokio = { version = "1", features = ["full"] }
